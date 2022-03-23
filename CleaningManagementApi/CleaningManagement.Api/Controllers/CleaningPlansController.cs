@@ -47,7 +47,7 @@ namespace CleaningManagement.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var cleaningPlans = await _cleaningPlanService.GetAllCliningPlansByCustomerIdAsync(customerId);
+                var cleaningPlans = await _cleaningPlanService.GetCliningPlansByCustomerIdAsync(customerId);
                 return Ok(cleaningPlans);
             }
 

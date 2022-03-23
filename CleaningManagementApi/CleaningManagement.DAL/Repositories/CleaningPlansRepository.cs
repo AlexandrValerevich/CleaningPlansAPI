@@ -52,7 +52,7 @@ namespace CleaningManagement.DAL.Repositories
 
         public async Task<IEnumerable<CleaningPlan>> ReadAllAsync() => await CleaningPlans.ToListAsync();
 
-        public async Task<IEnumerable<CleaningPlan>> GetAllCliningPlansByCustomerIdAsync(int customerId)
+        public async Task<IEnumerable<CleaningPlan>> GetCliningPlansByCustomerIdAsync(int customerId)
         {
             return await CleaningPlans.Where(plan => plan.CustomerID.Equals(customerId)).ToListAsync();
         }

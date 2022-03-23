@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleaningManagement.DAL", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleaningManagement.BusinessLogic", "CleaningManagement.BusinessLogic\CleaningManagement.BusinessLogic.csproj", "{84970FFB-6C65-4584-B0F6-023C6FDE5056}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleaningManagement.Test", "CleaningManagement.Test\CleaningManagement.Test.csproj", "{2AEDF31C-06D8-46D4-9A31-C59FE16E364D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{84970FFB-6C65-4584-B0F6-023C6FDE5056}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84970FFB-6C65-4584-B0F6-023C6FDE5056}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84970FFB-6C65-4584-B0F6-023C6FDE5056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AEDF31C-06D8-46D4-9A31-C59FE16E364D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AEDF31C-06D8-46D4-9A31-C59FE16E364D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AEDF31C-06D8-46D4-9A31-C59FE16E364D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AEDF31C-06D8-46D4-9A31-C59FE16E364D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

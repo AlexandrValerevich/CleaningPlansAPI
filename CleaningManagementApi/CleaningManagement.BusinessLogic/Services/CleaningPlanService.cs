@@ -29,9 +29,9 @@ namespace CleaningManagement.BusinessLogic.Services
             return _repository.ReadAllAsync();
         }
         
-        public Task<IEnumerable<CleaningPlan>> GetAllCliningPlansByCustomerIdAsync(int customerId)
+        public Task<IEnumerable<CleaningPlan>> GetCliningPlansByCustomerIdAsync(int customerId)
         {
-            return _repository.GetAllCliningPlansByCustomerIdAsync(customerId);
+            return _repository.GetCliningPlansByCustomerIdAsync(customerId);
         }
 
         public async Task<CleaningPlan> UpdateCleaningPlanAsync(Guid updatedPlanId, CleaningPlan plan)

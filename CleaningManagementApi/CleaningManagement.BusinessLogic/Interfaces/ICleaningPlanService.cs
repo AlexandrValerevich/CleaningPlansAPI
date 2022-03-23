@@ -9,7 +9,7 @@ namespace CleaningManagement.BusinessLogic.Interfaces
     {
         Task<CleaningPlan> AddCleaningPlanAsync(CleaningPlan plan);
         Task<IEnumerable<CleaningPlan>> GetAllCliningPlansAsync();
-        Task<IEnumerable<CleaningPlan>> GetAllCliningPlansByCustomerIdAsync(int customerId);
+        Task<IEnumerable<CleaningPlan>> GetCliningPlansByCustomerIdAsync(int customerId);
         Task<CleaningPlan> UpdateCleaningPlanAsync(Guid updatedPlanId, CleaningPlan plan);
         Task<bool> DeleteCleningPlanAsync(Guid id);
     }
