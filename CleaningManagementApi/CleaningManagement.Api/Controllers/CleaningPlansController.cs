@@ -24,9 +24,9 @@ namespace CleaningManagement.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCleaningPlans()
+        public async Task<IActionResult> GetCleaningPlans()
         {
-            var cleaningPlans = _cleaningPlanService.GetAllCliningPlans();
+            var cleaningPlans = await _cleaningPlanService.GetAllCliningPlansAsync();
             return Ok(cleaningPlans);
         }
 
@@ -44,11 +44,11 @@ namespace CleaningManagement.Api.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public IActionResult GetCleaningPlansByCustomerId(int customerId)
+        public async Task<IActionResult> GetCleaningPlansByCustomerId(int customerId)
         {
             if (ModelState.IsValid)
             {
-                var cleaningPlans = _cleaningPlanService.GetAllCliningPlansByCustomerId(customerId);
+                var cleaningPlans = await _cleaningPlanService.GetAllCliningPlansByCustomerIdAsync(customerId);
                 return Ok(cleaningPlans);
             }
 

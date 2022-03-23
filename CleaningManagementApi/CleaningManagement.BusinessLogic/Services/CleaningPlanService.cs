@@ -24,14 +24,14 @@ namespace CleaningManagement.BusinessLogic.Services
             return addedPlan;
         }
 
-        public IEnumerable<CleaningPlan> GetAllCliningPlans()
+        public Task<IEnumerable<CleaningPlan>> GetAllCliningPlansAsync()
         {
-            return _repository.ReadAll();
+            return _repository.ReadAllAsync();
         }
         
-        public IEnumerable<CleaningPlan> GetAllCliningPlansByCustomerId(int customerId)
+        public Task<IEnumerable<CleaningPlan>> GetAllCliningPlansByCustomerIdAsync(int customerId)
         {
-            return _repository.ReadAll().Where(plan => plan.CustomerID.Equals(customerId));
+            return _repository.GetAllCliningPlansByCustomerIdAsync(customerId);
         }
 
         public async Task<CleaningPlan> UpdateCleaningPlanAsync(Guid updatedPlanId, CleaningPlan plan)
@@ -53,9 +53,10 @@ namespace CleaningManagement.BusinessLogic.Services
             await _repository.DeleteAsync(id);
             await _repository.SaveAsync();
 
-            var cleaningPlans = _repository.ReadAll();
+            var cleaningPlans = await _repository.ReadAllAsync();
             return cleaningPlans;
         }
 
+      
     }
 }

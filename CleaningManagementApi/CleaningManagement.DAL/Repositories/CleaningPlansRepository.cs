@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CleaningManagement.BusinessLogic.Interfaces;
@@ -39,12 +40,16 @@ namespace CleaningManagement.DAL.Repositories
         {
             CleaningPlan plan = await ReadAsync(id);
             var changeTracking = CleaningPlans.Remove(plan);
-
             return changeTracking.Entity;
         }
 
         public Task SaveAsync() => _context.SaveChangesAsync();
 
-        public IQueryable<CleaningPlan> ReadAll() => CleaningPlans.AsQueryable();
+        public async Task<IEnumerable<CleaningPlan>> ReadAllAsync() => await CleaningPlans.ToListAsync();
+
+        public async Task<IEnumerable<CleaningPlan>> GetAllCliningPlansByCustomerIdAsync(int customerId)
+        {
+            return await CleaningPlans.Where(plan => plan.CustomerID.Equals(customerId)).ToListAsync();
+        }
     }
 }

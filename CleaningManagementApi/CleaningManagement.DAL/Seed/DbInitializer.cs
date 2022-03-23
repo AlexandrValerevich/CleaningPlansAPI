@@ -13,11 +13,15 @@ namespace CleaningManagement.DAL.Seed
             _repository = repository;
         }
 
-        private bool IsInitialized => _repository.ReadAll().Any();
+        private bool IsInitialized()
+        {
+            var cleaningPlans = _repository.ReadAllAsync().Result;
+            return cleaningPlans.Any();
+        }
 
         public void Initialize()
         {
-            if (IsInitialized)
+            if (IsInitialized())
             {
                 return;
             }

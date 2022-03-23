@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CleaningManagement.BusinessLogic.Interfaces
 {
@@ -11,6 +12,7 @@ namespace CleaningManagement.BusinessLogic.Interfaces
         public Task<T> UpdateAsync(T item);
         public Task<T> DeleteAsync(Guid id);
         public Task SaveAsync();
-        public IQueryable<T> ReadAll();
+        public Task<IEnumerable<T>> ReadAllAsync();
+        public Task<IEnumerable<T>> GetAllCliningPlansByCustomerIdAsync(int customerId);
     }
 }
