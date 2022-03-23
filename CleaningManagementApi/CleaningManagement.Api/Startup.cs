@@ -7,6 +7,8 @@ using CleaningManagement.BusinessLogic.Interfaces;
 using CleaningManagement.BusinessLogic.Entity;
 using CleaningManagement.BusinessLogic.Services;
 using CleaningManagement.DAL.Repositories;
+using CleaningManagement.Api.Infrastucture.Mappers;
+using CleaningManagement.Api.Models;
 
 namespace CleaningManagement.Api
 {
@@ -27,7 +29,8 @@ namespace CleaningManagement.Api
 
             services.AddScoped<IRepository<CleaningPlan>, CleaningPlansRepository>();
             services.AddScoped<ICleaningPlanService, CleaningPlanService>();
-
+            
+            services.AddScoped<IMapper<CleaningPlanModel, CleaningPlan>, CleaningPlanMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

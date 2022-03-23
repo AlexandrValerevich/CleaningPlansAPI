@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CleaningManagement.BusinessLogic.Interfaces;
+using CleaningManagement.Api.Infrastucture.Mappers;
 using CleaningManagement.Api.Models;
 using CleaningManagement.BusinessLogic.Entity;
+using AutoMapper;
 
 namespace CleaningManagement.Api.Controllers
 {
@@ -12,10 +14,13 @@ namespace CleaningManagement.Api.Controllers
     public class CleaningPlansController : ControllerBase
     {
         private readonly ICleaningPlanService _cleaningPlanService;
+        private readonly IMapper<CleaningPlanModel, CleaningPlan> _maper;
 
-        public CleaningPlansController(ICleaningPlanService cleaningPlanService)
+        public CleaningPlansController(ICleaningPlanService cleaningPlanService,
+                                       IMapper<CleaningPlanModel, CleaningPlan> maper)
         {
             _cleaningPlanService = cleaningPlanService;
+            _maper = maper;
         }
 
         [HttpGet]
@@ -26,11 +31,11 @@ namespace CleaningManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetActionResult(CleaningPlanModel model)
+        public async Task<IActionResult> CreateCleaningPlan(CleaningPlanModel model)
         {
             if (ModelState.IsValid)
             {
-                CleaningPlan addedCleaningPlan = ConvertModelToCleaningPlan(model);
+                CleaningPlan addedCleaningPlan = _maper.Map(model);
                 CleaningPlan createdCleaningPlan = await _cleaningPlanService.AddCleaningPlanAsync(addedCleaningPlan);
 
                 return Ok(createdCleaningPlan);
@@ -39,7 +44,7 @@ namespace CleaningManagement.Api.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public IActionResult GetCustomersCleaningPlans(int customerId)
+        public IActionResult GetCleaningPlansByCustomerId(int customerId)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +60,7 @@ namespace CleaningManagement.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                CleaningPlan updatedCleaningPlan = ConvertModelToCleaningPlan(model);
+                CleaningPlan updatedCleaningPlan = _maper.Map(model);
                 await _cleaningPlanService.UpdateCleaningPlanAsync(id, updatedCleaningPlan);
 
                 return Ok();
@@ -75,14 +80,5 @@ namespace CleaningManagement.Api.Controllers
 
             return BadRequest();
         }
-
-
-        private static CleaningPlan ConvertModelToCleaningPlan(CleaningPlanModel model) => new()
-        {
-            Title = model.Title,
-            CustomerID = model.CustomerID,
-            Description = model.Description
-        };
-
     }
 }
