@@ -5,7 +5,6 @@ using CleaningManagement.BusinessLogic.Interfaces;
 using CleaningManagement.Api.Infrastucture.Mappers;
 using CleaningManagement.Api.Models;
 using CleaningManagement.BusinessLogic.Entity;
-using AutoMapper;
 
 namespace CleaningManagement.Api.Controllers
 {
@@ -74,8 +73,8 @@ namespace CleaningManagement.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var deletedCliningPlan = await _cleaningPlanService.DeleteCleningPlanAsync(id);
-                return Ok(deletedCliningPlan);
+                bool isDeleted = await _cleaningPlanService.DeleteCleningPlanAsync(id);
+                return Ok(isDeleted);
             }
 
             return BadRequest();

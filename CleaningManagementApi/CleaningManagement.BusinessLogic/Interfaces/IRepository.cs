@@ -10,7 +10,7 @@ namespace CleaningManagement.BusinessLogic.Interfaces
         public Task<T> CreateAsync(T item);
         public Task<T> ReadAsync(Guid id);
         public Task<T> UpdateAsync(T item);
-        public Task<T> DeleteAsync(Guid id);
+        public Task<bool> DeleteAsync(Guid id);
         public Task SaveAsync();
         public Task<IEnumerable<T>> ReadAllAsync();
         public Task<IEnumerable<T>> GetAllCliningPlansByCustomerIdAsync(int customerId);

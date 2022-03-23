@@ -32,15 +32,20 @@ namespace CleaningManagement.DAL.Repositories
 
         public Task<CleaningPlan> UpdateAsync(CleaningPlan plan)
         {
-           var changeTracking = CleaningPlans.Update(plan);
-           return Task.FromResult(changeTracking.Entity);
+            var changeTracking = CleaningPlans.Update(plan);
+            return Task.FromResult(changeTracking.Entity);
         }
 
-        public async Task<CleaningPlan> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             CleaningPlan plan = await ReadAsync(id);
-            var changeTracking = CleaningPlans.Remove(plan);
-            return changeTracking.Entity;
+            if (plan != null)
+            {
+                CleaningPlans.Remove(plan);
+                return true;
+            }
+
+            return false;
         }
 
         public Task SaveAsync() => _context.SaveChangesAsync();

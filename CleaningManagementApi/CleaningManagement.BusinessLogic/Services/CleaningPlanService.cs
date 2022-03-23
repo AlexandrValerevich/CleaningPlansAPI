@@ -48,15 +48,12 @@ namespace CleaningManagement.BusinessLogic.Services
             return updatedPlan;
         }
 
-        public async Task<IEnumerable<CleaningPlan>> DeleteCleningPlanAsync(Guid id)
+        public async Task<bool> DeleteCleningPlanAsync(Guid id)
         {
-            await _repository.DeleteAsync(id);
+            var isDeleted = await _repository.DeleteAsync(id);
             await _repository.SaveAsync();
 
-            var cleaningPlans = await _repository.ReadAllAsync();
-            return cleaningPlans;
+            return isDeleted;
         }
-
-      
     }
 }
