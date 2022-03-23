@@ -4,7 +4,7 @@ using CleaningManagement.BusinessLogic.Entity;
 
 namespace CleaningManagement.Api.Infrastucture.Mappers
 {
-    class CleaningPlanMapper : IMapper<CleaningPlanModel, CleaningPlan>
+    public class CleaningPlanMapper : IMapper<CleaningPlanModel, CleaningPlan>
     {
         public CleaningPlan Map(CleaningPlanModel model)
         {
