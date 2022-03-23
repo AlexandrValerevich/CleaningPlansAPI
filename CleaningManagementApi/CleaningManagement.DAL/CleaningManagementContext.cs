@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using CleaningManagement.BusinessLogic.Entity;
 
 namespace CleaningManagement.DAL
 {
@@ -9,6 +10,8 @@ namespace CleaningManagement.DAL
         public CleaningManagementDbContext()
         {
         }
+
+        public DbSet<CleaningPlan> CleaningPlans { get; set; }
 
         // The following configures EF to create a Sqlite database file in the
         // special "local" folder for your platform.
