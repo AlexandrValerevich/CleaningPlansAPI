@@ -17,14 +17,16 @@ namespace CleaningManagement.Test.Controller
         private readonly Mock<ICleaningPlanService> _cleaningPlanServiceMoc = new();
         private readonly IMapper<CleaningPlanModel, CleaningPlan> _maper = new CleaningPlanMapper();
 
+        private ICleaningPlanService CleaningPlanService => _cleaningPlanServiceMoc.Object;
+
         [Fact]
-        public async Task GetCleaningPlans_SimpleInvoke_ShouldReturnAllCleaningPlans()
+        public async Task GetCleaningPlans_Invoke_ShouldReturnAllCleaningPlans()
         {
             // Arrange
             IEnumerable<CleaningPlan> cleaningPlans = GetTestCleaningPlans();
             _cleaningPlanServiceMoc.Setup(_ => _.GetAllCliningPlansAsync()).ReturnsAsync(cleaningPlans);
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             var actionResult = await controller.GetCleaningPlans() as OkObjectResult;
@@ -43,8 +45,7 @@ namespace CleaningManagement.Test.Controller
             _cleaningPlanServiceMoc.Setup(_ => _.AddCleaningPlanAsync(It.IsAny<CleaningPlan>()))
                                    .ReturnsAsync(It.IsAny<CleaningPlan>());
 
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             var actionResult = await controller.CreateCleaningPlan(cleaningPlanModel);
@@ -62,8 +63,7 @@ namespace CleaningManagement.Test.Controller
             _cleaningPlanServiceMoc.Setup(_ => _.GetCliningPlansByCustomerIdAsync(It.IsAny<int>()))
                                    .ReturnsAsync(cleaningPlans);
 
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             var actionResult = await controller.GetCleaningPlansByCustomerId(customerId);
@@ -81,8 +81,7 @@ namespace CleaningManagement.Test.Controller
             _cleaningPlanServiceMoc.Setup(_ => _.GetCliningPlansByCustomerIdAsync(It.IsAny<int>()))
                                    .ReturnsAsync(cleaningPlans);
 
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             var actionResult = await controller.GetCleaningPlansByCustomerId(customerId) as OkObjectResult;
@@ -98,8 +97,7 @@ namespace CleaningManagement.Test.Controller
         {
             // Arrange
             int? customerId = null;
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             // Assert
@@ -115,8 +113,7 @@ namespace CleaningManagement.Test.Controller
             _cleaningPlanServiceMoc.Setup(_ => _.UpdateCleaningPlanAsync(It.IsAny<Guid>(),It.IsAny<CleaningPlan>()))
                                    .ReturnsAsync(It.IsAny<CleaningPlan>);
 
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             var actionResult = await controller.UpdateCleaningPlans(id, cleaningPlans);
@@ -132,8 +129,7 @@ namespace CleaningManagement.Test.Controller
             CleaningPlanModel cleaningPlans = GetTestCleaningPlanModel();
             Guid? id = null;
 
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             // Assert
@@ -148,8 +144,7 @@ namespace CleaningManagement.Test.Controller
             _cleaningPlanServiceMoc.Setup(_ => _.DeleteCleningPlanAsync(It.IsAny<Guid>()))
                                    .ReturnsAsync(It.IsAny<bool>);
 
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             var actionResult = await controller.DeleteCleaningPlans(id);
@@ -163,9 +158,7 @@ namespace CleaningManagement.Test.Controller
         {
             // Arrange
             Guid? id = null;
-
-            ICleaningPlanService cleaningPlansService = _cleaningPlanServiceMoc.Object;
-            var controller = new CleaningPlansController(cleaningPlansService, _maper);
+            var controller = new CleaningPlansController(CleaningPlanService, _maper);
 
             // Act
             // Assert
@@ -180,7 +173,6 @@ namespace CleaningManagement.Test.Controller
                 Title = "Hotel Room Cleaning, double bed",
                 CustomerID = 123223,
                 Description = "This plan is meant to be used for double bed rooms.",
-                CreationDate = CommonDateTime
             },
             new CleaningPlan
             {
@@ -188,11 +180,8 @@ namespace CleaningManagement.Test.Controller
                 Title = "Mall Cleaning, inner city",
                 CustomerID = 123224,
                 Description = "Suitable only for malls smaller than 23000 m².",
-                CreationDate = CommonDateTime
             }
         };
-
-        private static DateTime CommonDateTime => DateTime.Now;
 
         private static CleaningPlanModel GetTestCleaningPlanModel() => new()
         {
